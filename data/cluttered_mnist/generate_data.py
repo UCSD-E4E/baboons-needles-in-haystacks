@@ -11,7 +11,14 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
-from tensorflow.examples.tutorials.mnist import input_data
+
+# added
+import tensorflow as tf
+import tensorflow_datasets as tfds
+
+# removed
+#from tensorflow.examples.tutorials.mnist import input_data
+
 from tqdm import trange, tqdm
 from scipy.ndimage import zoom
 import scipy.misc
@@ -132,9 +139,13 @@ if __name__ == "__main__":
         assert args.patch_size > 28, 'patch size needs to be bigger than mnist digit'
         assert args.canvas % args.patch_size == 0, 'canvas needs to be multiple of patch size'
 
-    os.makedirs(args.out, exist_ok=True)
+    # causes error
+    # os.makedirs(args.out, exist_ok=True)
 
-    mnist = input_data.read_data_sets(args.mnist, one_hot=False)
+    # mnist = input_data.read_data_sets(args.mnist, one_hot=False)
+
+    # added
+    (mnist_train, mnist_test) = tfds.load(name="mnist", split=tfds.Split.TRAIN)
 
     np.random.seed(1234)
 
