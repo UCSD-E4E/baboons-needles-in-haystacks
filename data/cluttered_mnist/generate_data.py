@@ -145,7 +145,14 @@ if __name__ == "__main__":
     # mnist = input_data.read_data_sets(args.mnist, one_hot=False)
 
     # added
-    (mnist_train, mnist_test) = tfds.load(name="mnist", split=tfds.Split.TRAIN)
+    (mnist_train, mnist_test), ds_info = tfds.load(
+        'mnist',
+        split=['train', 'test'],
+        shuffle_files=True,
+        as_supervised=True,
+        with_info=True,
+    )
+
 
     np.random.seed(1234)
 
