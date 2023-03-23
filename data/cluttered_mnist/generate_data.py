@@ -15,6 +15,9 @@ import os
 # added
 import tensorflow as tf
 import tensorflow_datasets as tfds
+from tensorflow import keras
+from sklearn.model_selection import train_test_split
+
 
 # removed
 #from tensorflow.examples.tutorials.mnist import input_data
@@ -145,13 +148,19 @@ if __name__ == "__main__":
     # mnist = input_data.read_data_sets(args.mnist, one_hot=False)
 
     # added
-    (mnist_train, mnist_test), ds_info = tfds.load(
-        'mnist',
-        split=['train', 'test'],
-        shuffle_files=True,
-        as_supervised=True,
-        with_info=True,
-    )
+    # (mnist_train, mnist_test), ds_info = tfds.load(
+    #     'mnist',
+    #     split=['train', 'test'],
+    #     shuffle_files=True,
+    #     as_supervised=True,
+    #     with_info=True,
+    # )
+    (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+    x = np.concatenate((x_train, x_test))
+    y = np.concatenate((y_train, y_test))
+
+    train_size = 0.7
+    x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=train_size, random_seed=2019)
 
 
     np.random.seed(1234)
