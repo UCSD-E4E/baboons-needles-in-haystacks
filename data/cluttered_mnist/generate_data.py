@@ -5,23 +5,15 @@
 # LICENSE file in the root directory of this source tree.
 #
 
+# python data/cluttered_mnist/generate_data.py --distortion-num 2 --patch-size 64 --type detection --canvas 64 --out /Users/sraswan/Documents/Workspace/Needles-in-Haystacks/data/mnist/64_28 --mnist /Users/sraswan/tensorflow_datasets/mnist/
+
 # adapted from https://github.com/skaae/recurrent-spatial-transformer-code/blob/master/MNIST_SEQUENCE/create_mnist_sequence.py
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
-
-# added
-import tensorflow as tf
-import tensorflow_datasets as tfds
-from tensorflow import keras
-from sklearn.model_selection import train_test_split
-
-
-# removed
-#from tensorflow.examples.tutorials.mnist import input_data
-
+import input_data
 from tqdm import trange, tqdm
 from scipy.ndimage import zoom
 import scipy.misc
@@ -142,26 +134,9 @@ if __name__ == "__main__":
         assert args.patch_size > 28, 'patch size needs to be bigger than mnist digit'
         assert args.canvas % args.patch_size == 0, 'canvas needs to be multiple of patch size'
 
-    # causes error
-    # os.makedirs(args.out, exist_ok=True)
+    os.makedirs(args.out, exist_ok=True)
 
-    # mnist = input_data.read_data_sets(args.mnist, one_hot=False)
-
-    # added
-    # (mnist_train, mnist_test), ds_info = tfds.load(
-    #     'mnist',
-    #     split=['train', 'test'],
-    #     shuffle_files=True,
-    #     as_supervised=True,
-    #     with_info=True,
-    # )
-    (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
-    x = np.concatenate((x_train, x_test))
-    y = np.concatenate((y_train, y_test))
-
-    train_size = 0.7
-    x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=train_size, random_seed=2019)
-
+    mnist = input_data.read_data_sets(args.mnist, one_hot=False)
 
     np.random.seed(1234)
 
