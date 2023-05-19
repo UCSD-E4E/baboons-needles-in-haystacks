@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--distortion-num",
+                "2",
+                "--patch-size",
+                "64",
+                "--type",
+                "detection",
+                "--canvas",
+                "64",
+                "--out",
+                "./checkpoint/jromoff/needle/data/mnist/64_28",
+                "--mnist",
+                "./raw/mnist"
+            ],
+            "justMyCode": true
+        }
+    ]
+}
